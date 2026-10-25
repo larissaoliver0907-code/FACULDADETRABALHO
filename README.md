@@ -143,7 +143,7 @@ A API sobe em `http://localhost:8080/api` (há um teste rápido em `GET /api/hea
 mvn spring-boot:run -Dspring-boot.run.profiles=demo
 ```
 
-As contas de exemplo (`professor`, `aluno`, `ex.bruno`, `ex.diego`…) usam a senha definida em `DEMO_PASSWORD`. Esses dados só são criados quando o banco não possui cursos. **Não use o perfil `demo` em produção.**
+As contas de exemplo (`ana.lima`, `carla.souza`, `ex.bruno`, `ex.diego`…) usam a senha definida em `DEMO_PASSWORD`. Esses dados só são criados quando o banco não possui cursos. **Não use o perfil `demo` em produção.**
 
 ## Executar o frontend
 
@@ -155,7 +155,7 @@ npm run dev
 
 Acesse `http://localhost:5173`. Em desenvolvimento, o Vite encaminha `/api` para `http://localhost:8080`.
 
-Com o backend no perfil `demo`, a tela de login mostra as contas `professor` e `aluno` com a senha de exemplo; clique em uma delas para preencher o formulário.
+Com o backend no perfil `demo`, a tela de login mostra as contas de exemplo (`admin`, `ana.lima`, `carla.souza`) cuja senha seja igual a `DEMO_PASSWORD`; clique em uma delas para preencher o formulário.
 
 ## Executar os testes
 
