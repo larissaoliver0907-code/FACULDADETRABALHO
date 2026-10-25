@@ -1,4 +1,4 @@
-# Blueprint do Render: backend (Docker) + banco PostgreSQL.
+# Blueprint do Render: backend (Docker). O banco PostgreSQL fica no Supabase.
 # No painel do Render: New > Blueprint > escolha este repositório.
 services:
   - type: web
@@ -9,16 +9,10 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
     envVars:
-      - key: DB_HOST
-        fromDatabase: { name: educonnect-db, property: host }
-      - key: DB_PORT
-        fromDatabase: { name: educonnect-db, property: port }
-      - key: DB_NAME
-        fromDatabase: { name: educonnect-db, property: database }
+      # Banco no Supabase (Session pooler, compatível com IPv4). Exemplo de DB_URL:
+      # jdbc:postgresql://aws-0-<regiao>.pooler.supabase.com:5432/postgres?sslmode=require
       - key: DB_USERNAME
-        fromDatabase: { name: educonnect-db, property: user }
-      - key: DB_PASSWORD
-        fromDatabase: { name: educonnect-db, property: password }
+        value: postgres.tdhtsydbrzjtzemewube
       - key: JWT_SECRET
         generateValue: true
       - key: ADMIN_LOGIN
@@ -31,12 +25,10 @@ services:
         value: demo1234
       - key: ADMIN_PASSWORD
         value: demo1234
-      # Preenchido no painel durante a criação do Blueprint:
+      # Preenchidos no painel durante a criação do Blueprint:
+      - key: DB_URL
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
       - key: CORS_ALLOWED_ORIGINS
         sync: false
-
-databases:
-  - name: educonnect-db
-    plan: free
-    databaseName: educonnect
-    user: educonnect
