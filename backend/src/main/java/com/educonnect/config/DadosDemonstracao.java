@@ -77,7 +77,7 @@ public class DadosDemonstracao implements ApplicationRunner {
         Curso gti = cursos.save(new CursoEAD("EX-GTI", "[Exemplo] Gestão da Tecnologia da Informação", 1600,
                 "Curso de exemplo para demonstração.", "Moodle"));
 
-        Professor p1 = new Professor("[Exemplo] Professora Ana Lima", "ex.ana", hash, "EX-P001", "Engenharia de Software");
+        Professor p1 = new Professor("[Exemplo] Professora Ana Lima", "professor", hash, "EX-P001", "Engenharia de Software");
         p1.definirCursos(Set.of(ads));
         p1 = professores.save(p1);
         Professor p2 = new Professor("[Exemplo] Professor Bruno Reis", "ex.bruno", hash, "EX-P002", "Redes e Infraestrutura");
@@ -92,7 +92,7 @@ public class DadosDemonstracao implements ApplicationRunner {
         t2 = turmas.save(t2);
 
         String[][] dadosAlunos = {
-                {"[Exemplo] Carla Souza", "ex.carla", "EX0001"},
+                {"[Exemplo] Carla Souza", "aluno", "EX0001"},
                 {"[Exemplo] Diego Martins", "ex.diego", "EX0002"},
                 {"[Exemplo] Elisa Ramos", "ex.elisa", "EX0003"},
                 {"[Exemplo] Felipe Costa", "ex.felipe", "EX0004"},

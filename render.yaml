@@ -23,6 +23,12 @@ services:
         generateValue: true
       - key: ADMIN_LOGIN
         value: admin
+      # Perfil demo: cria dados de exemplo e as contas "professor" e "aluno",
+      # cuja senha (DEMO_PASSWORD) aparece na tela de login.
+      - key: SPRING_PROFILES_ACTIVE
+        value: demo
+      - key: DEMO_PASSWORD
+        value: educonnect123
       # Preenchidos no painel durante a criação do Blueprint:
       - key: ADMIN_PASSWORD
         sync: false

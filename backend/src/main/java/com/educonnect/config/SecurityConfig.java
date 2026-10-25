@@ -58,6 +58,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/auth/contas-exemplo").permitAll()
                         .requestMatchers("/api/health").permitAll()
                         .requestMatchers("/api/me/**").hasRole("ALUNO")
                         // Todos os perfis podem consultar os critérios acadêmicos; só o administrador altera.

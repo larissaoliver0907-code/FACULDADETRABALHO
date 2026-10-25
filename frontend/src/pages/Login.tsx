@@ -1,5 +1,5 @@
 import { BarChart3, Eye, EyeOff, GraduationCap, Lock, School, Users } from 'lucide-react'
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { Botao } from '../components/ui/Botao'
 import { Campo } from '../components/ui/Campos'
@@ -9,6 +9,9 @@ import { paginaInicial } from '../layouts/navegacao'
 import { AvisoDemo } from '../components/AvisoDemo'
 import { ApiError, MODO_DEMO } from '../services/api'
 import { CONTAS_DEMO, SENHA_DEMO } from '../services/demo/contas'
+import { authService } from '../services/educonnect'
+
+type ContasExemplo = { senha: string; contas: { login: string; perfil: string }[] }
 
 export default function Login() {
   const { usuario, entrar, sessaoExpirada } = useAuth()
@@ -19,6 +22,18 @@ export default function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState<string | null>(null)
+  const [exemplo, setExemplo] = useState<ContasExemplo | null>(
+    MODO_DEMO ? { senha: SENHA_DEMO, contas: CONTAS_DEMO } : null,
+  )
+
+  useEffect(() => {
+    if (MODO_DEMO) return
+    // O backend só informa contas de exemplo no perfil "demo"; nos demais a lista não aparece.
+    authService
+      .contasExemplo()
+      .then((r) => setExemplo(r.contas.length > 0 ? r : null))
+      .catch(() => setExemplo(null))
+  }, [])
 
   if (usuario) return <Navigate to={paginaInicial(usuario.perfil)} replace />
 
@@ -134,18 +149,18 @@ export default function Login() {
           <p className="mt-6 text-center text-xs text-slate-400">
             Esqueceu a senha? Solicite a redefinição ao administrador do sistema.
           </p>
-          {MODO_DEMO && (
+          {exemplo && (
             <div className="mt-8 rounded-2xl border border-slate-200 p-4 dark:border-white/10">
               <p className="text-xs font-semibold tracking-wide text-slate-500 uppercase">Contas de exemplo</p>
-              <p className="mt-1 text-xs text-slate-500">Senha de todas: <span className="font-mono text-slate-700 dark:text-slate-200">{SENHA_DEMO}</span></p>
+              <p className="mt-1 text-xs text-slate-500">Senha de todas: <span className="font-mono text-slate-700 dark:text-slate-200">{exemplo.senha}</span></p>
               <div className="mt-3 grid gap-2">
-                {CONTAS_DEMO.map((c) => (
+                {exemplo.contas.map((c) => (
                   <button
                     key={c.login}
                     type="button"
                     onClick={() => {
                       setLogin(c.login)
-                      setSenha(SENHA_DEMO)
+                      setSenha(exemplo.senha)
                       setErro(null)
                     }}
                     className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-left text-sm transition hover:bg-blue-50 dark:bg-white/5 dark:hover:bg-blue-500/10"

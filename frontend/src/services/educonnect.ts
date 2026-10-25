@@ -36,6 +36,9 @@ export const authService = {
   login: (login: string, senha: string) => api.post<LoginResponse>('/auth/login', { login, senha }),
   me: () => api.get<UsuarioLogado>('/auth/me'),
   alterarSenha: (senhaAtual: string, novaSenha: string) => api.post<void>('/auth/senha', { senhaAtual, novaSenha }),
+  /** Contas de exemplo para a tela de login; só existe quando o backend roda no perfil "demo". */
+  contasExemplo: () =>
+    api.get<{ senha: string; contas: { login: string; perfil: string }[] }>('/auth/contas-exemplo'),
 }
 
 export const dashboardService = {
