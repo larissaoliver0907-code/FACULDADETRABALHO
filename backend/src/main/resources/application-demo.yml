@@ -1,0 +1,5 @@
+# Perfil de demonstração para desenvolvimento local.
+# Ative com SPRING_PROFILES_ACTIVE=demo. Os registros criados são identificados como "[Exemplo]".
+educonnect:
+  demo:
+    enabled: true
