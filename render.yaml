@@ -9,8 +9,9 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
     envVars:
-      # Banco no Supabase (Session pooler, compatível com IPv4). Exemplo de DB_URL:
-      # jdbc:postgresql://aws-0-<regiao>.pooler.supabase.com:5432/postgres?sslmode=require
+      # Banco no Supabase (Session pooler, compatível com IPv4).
+      - key: DB_URL
+        value: jdbc:postgresql://aws-1-us-west-2.pooler.supabase.com:5432/postgres?sslmode=require
       - key: DB_USERNAME
         value: postgres.tdhtsydbrzjtzemewube
       - key: JWT_SECRET
@@ -25,9 +26,7 @@ services:
         value: demo1234
       - key: ADMIN_PASSWORD
         value: demo1234
-      # Preenchidos no painel durante a criação do Blueprint:
-      - key: DB_URL
-        sync: false
+      # Preenchidos no painel do Render (a senha do banco nunca vai para o GitHub):
       - key: DB_PASSWORD
         sync: false
       - key: CORS_ALLOWED_ORIGINS
